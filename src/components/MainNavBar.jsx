@@ -25,6 +25,7 @@ import Pages from '../pages/Pages';
 import Products from '../products/Products';
 
 export default function MainNavBar() {
+  
   // const [showSearch, setShowSearch] = useState(false);
   // const [showCart, setShowCart] = useState(false);
   // const handleShowSearch = () => setShowSearch(!showSearch);

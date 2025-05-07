@@ -1,36 +1,61 @@
 import React from "react";
 import { Button, Container, Form, InputGroup } from "react-bootstrap";
+import { useAuthContext } from "../context/AuthContext";
+import { useFormik } from "formik";
+import { object, string } from "yup";
 
 export default function Login() {
+    const {login} = useAuthContext();
+    const loginForm = useFormik({
+        initialValues:{
+            username:"",
+            password:"",
+        },
+        validationSchema:object({
+            username:string().required(),
+            password:string().required(),
+        }),
+        validateOnMount:true,
+        onSubmit:(values)=>{
+           login(values);
+            
+        },
+       
+    });
+   
    return (
-    <Container className="container">
+    <Container className="container" style={{textAlign:'start'}}>
       <div className="row justify-content-center ">
         <div className="col-md-6">
           <h1>Login page</h1>
-          <Form>
+          <Form onSubmit={loginForm.handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label >Email address</Form.Label>
+              <Form.Label >User Name</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  isInvalid={true}
+                {...loginForm.getFieldProps('username')}
+                  
+                  placeholder="Enter User Name"
+                  isInvalid={loginForm.errors.username }
                 />
                 <Form.Control.Feedback type="invalid">
-                  Error
+                  {loginForm.errors.username && loginForm.touched.username}
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control 
+              {...loginForm.getFieldProps('password')}
+              type="password" placeholder="Password"
+              isInvalid={loginForm.errors.password && loginForm.touched.password} />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid zip.
+              {loginForm.errors.password}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button  variant="primary" type="submit">
               Submit
             </Button>
           </Form>

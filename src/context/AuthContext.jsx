@@ -1,29 +1,69 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
+import { MainApi } from "../Api/Api";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
 
 const AuthContext = createContext({
     token:null,
+    isAuth:false,
     login: () => {},
     logout: () => {},
 });
 
 
 export const AuthProvider = ({children}) => {
-    const [token , setToken]= useState(null);
-    const login = () =>{
-     console.log('login')
+    const initToken = Cookies.get("token");
+    const [token , setToken]= useState(initToken);
+    const navigate =useNavigate();
+    useEffect(() => {
+   token &&  validateToken();
+    },[])
+    const validateToken = () => {
+     MainApi.get("/auth/me",{
+        headers:{
+            Authorization:`Bearer ${token}`
+        },
+     }).then(({data}) => {console.log(data);
+     }).catch((error) => {
+       console.log(error);
+       logout();
+       
+     })
+    };
+    const login = (userData) =>{
+        
+     console.log('user data' , userData),
+     MainApi.post("/auth/login",{
+        ...userData,  
+      }).then(({data}) => {
+        setToken(data.accessToken);
+        Cookies.set('name', data.accessToken, { expires: 14 });
+         navigate('/', {replace:true});
+        console.log(data.accessToken);
+        
+          
+      }).catch((error) => {
+          console.log(error);
+          
+      });
     } ;
     const logout = () =>{
-        console.log('login')
+        Cookies.remove("token");
+        setToken(null);
+        navigate("/login",{replace:true});
+       
        } ;
     return  <AuthContext.Provider value={{
         login,
         logout,
         token,
+        isAuth: !!token,
         }}>
             {children}
         </AuthContext.Provider>;
     
 };
 
- export const userAuthContext = () => useContext(AuthContext);
+ export const useAuthContext = () => useContext(AuthContext);

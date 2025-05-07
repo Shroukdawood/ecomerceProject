@@ -9,6 +9,7 @@ import Home from './home/Home';
 import MainLayout from './layout/MainLayout';
  import Login from './login/Login';
 import Error404 from './pages/error/Error404';
+import { AuthProvider } from './context/AuthContext';
 
 
 
@@ -43,8 +44,9 @@ function App() {
   return (
     <>
     
-       {/* <MainNavBar/> */}
-      {routes}
+      <AuthProvider>
+        {routes}
+      </AuthProvider>
     </>
   )
 }

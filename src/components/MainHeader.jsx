@@ -2,13 +2,22 @@ import { faCodeCompare, faHeart, faMobileScreenButton, faUser } from '@fortaweso
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import { Dropdown , Button, NavLink, NavDropdown} from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import { Link, useRoutes } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext';
+import Login from '../login/Login';
 
 export default function MainHeader() {
 //   const [language , setLanguage]=useState(null);
 // const language = [{
 
 // }];
+const link = [{
+   
+        path:"/login",
+       name:'login'
+     }
+];
+const {isAuth ,login, logout} = useAuthContext();
 
   return (
     <>
@@ -52,9 +61,14 @@ export default function MainHeader() {
             <NavLink className="me-4">
               <FontAwesomeIcon icon={faHeart} /> Wishlist
             </NavLink>
-            <NavLink  className="me-4">
-              <FontAwesomeIcon icon={faUser} /> Login
+            {isAuth ? (
+              <NavLink onClick={logout} className="me-4">
+              <FontAwesomeIcon icon={faUser} /> Logout
             </NavLink>
+            ) : (<NavLink  onClick={login}  className="me-4">
+              <FontAwesomeIcon icon={faUser} /> Login
+            </NavLink>) }
+            
           </div>    
    </header>
 
