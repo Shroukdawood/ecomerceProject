@@ -10,6 +10,8 @@ import MainLayout from './layout/MainLayout';
  import Login from './login/Login';
 import Error404 from './pages/error/Error404';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRouter from './components/ProtectedRouter';
+import Register from './register/Register';
 
 
 
@@ -23,14 +25,16 @@ function App() {
       path:"/login",
       element:<Login/>
    },
-  //  {
-  //    path:"/register",
-  //   element:<Register/>
+   {
+     path:"/register",
+    element:<Register/>
 
-  //  },
+   },
   {
     path:"/",
-   element:<Home/>
+   element:
+   <ProtectedRouter><Home/></ProtectedRouter>
+   
 
   },
   {

@@ -3,9 +3,16 @@ import { Button, Container, Form, InputGroup } from "react-bootstrap";
 import { useAuthContext } from "../context/AuthContext";
 import { useFormik } from "formik";
 import { object, string } from "yup";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-    const {login} = useAuthContext();
+    const {login , isAuth} = useAuthContext();
+    const navigate = useNavigate();
+    //   isAuth && navigate("/")
+    // ;
+    if (isAuth) {
+      navigate("/");
+    }
     const loginForm = useFormik({
         initialValues:{
             username:"",

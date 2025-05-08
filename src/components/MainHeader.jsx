@@ -61,6 +61,7 @@ const {isAuth ,login, logout} = useAuthContext();
             <NavLink className="me-4">
               <FontAwesomeIcon icon={faHeart} /> Wishlist
             </NavLink>
+          
             {isAuth ? (
               <NavLink onClick={logout} className="me-4">
               <FontAwesomeIcon icon={faUser} /> Logout

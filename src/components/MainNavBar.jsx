@@ -20,7 +20,7 @@ import {
   NavLink,
   Offcanvas,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+
 import Pages from '../pages/Pages';
 import Products from '../products/Products';
 
@@ -38,7 +38,7 @@ export default function MainNavBar() {
       <Navbar
          style={{width:"100%", background: "white" ,boxShadow: "0px 2px 5px rgba(0,0,0,0.1)" ,borderRadius:"2px",zIndex:'111'}}
         expand="lg"
-        className="bg-body-white"
+        className="bg-body-white row "
         sticky="top"
       >
         <Container fluid >
