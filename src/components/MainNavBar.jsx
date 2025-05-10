@@ -6,14 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../assets/imagesfashon/logo_dark.png";
 import logo2 from "../assets/imagesfashon/logo_light.png";
 
-
+// import Button from 'react-bootstrap/Button';
+// import Modal from 'react-bootstrap/Modal';
+import { useState } from 'react';
+import SearchLogic from './SearchLogic';
 import {
   Button,
-  Card,
   Container,
-  Dropdown,
-  Form,
   Image,
+  Modal,
   Nav,
   Navbar,
   NavDropdown,
@@ -23,9 +24,10 @@ import {
 
 import Pages from '../pages/Pages';
 import Products from '../products/Products';
+import HomeDropdown from '../home/HomeDropdown';
 
 export default function MainNavBar() {
-  
+  const [modalShow, setModalShow] = useState(false);
   // const [showSearch, setShowSearch] = useState(false);
   // const [showCart, setShowCart] = useState(false);
   // const handleShowSearch = () => setShowSearch(!showSearch);
@@ -33,6 +35,27 @@ export default function MainNavBar() {
   // const handleClose = () => setShowSearch(false);
   // const handleCloseCart = () => setShowCart(false);
   // const handleShow = () => setShowSearch(true);
+  function MyVerticallyCenteredModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Search
+        </Modal.Title>
+      </Modal.Header>
+     <SearchLogic/>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
   return (
     <>
       <Navbar
@@ -43,51 +66,34 @@ export default function MainNavBar() {
       >
         <Container fluid >
           
-          <Navbar.Brand to="/home" className="d-flex align-items-center col-4" > 
+          <Navbar.Brand  className="d-flex align-items-center col-4" > 
+          <NavLink to="/fashionHome">
             <Image src={logo2} alt="Logo" width="100" height="50" className="me-2"/>
             <Image src={logo} alt="Logo" width="100" height="50" className="me-2"/>
+         </NavLink>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0 col-8 " gap={3} style={{ maxHeight: "100px" , display:"flex" ,justifyContent:"space-between"}} navbarScroll >
 
-          <NavDropdown title="Home" id="navbarScrollingDropdown">
-            <NavDropdown.Item href="#">Fashion1</NavDropdown.Item>
-            <NavDropdown.Item href="#">Fashion2</NavDropdown.Item>
-            <NavDropdown.Item href="#">Furniture1</NavDropdown.Item>
-            <NavDropdown.Item href="#">Furniture2</NavDropdown.Item>
-            <NavDropdown.Item href="#">Electronics1</NavDropdown.Item>
-            <NavDropdown.Item href="#">Electronics2</NavDropdown.Item>
-          </NavDropdown>
+          <HomeDropdown/>
           <Pages/>
 
            <Products/>
           <NavLink to="/contact" className="nav-link">
             Contact US
           </NavLink>
-          <NavLink to="/search" className="btn btn-outline-success">
-            <Button variant="primary">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </Button>
+          
 
-            <Offcanvas backdrop="static">
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Search</Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Form>
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="form-control"
-                  />
-                  <Button variant="primary" type="submit" className="mt-2">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                  </Button>
-                </Form>
-              </Offcanvas.Body>
-            </Offcanvas>
-          </NavLink>
+     <Button className='mb-3' variant="light" onClick={() => setModalShow(true)}>
+       <FontAwesomeIcon icon={faMagnifyingGlass} />
+      </Button>
+
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+         
           <NavLink to="/cart" className="btn btn-outline-success">
             <Button variant="primary">
               <FontAwesomeIcon icon={faBasketShopping} />
@@ -107,3 +113,53 @@ export default function MainNavBar() {
     </>
   );
 }
+
+
+
+
+// function MyVerticallyCenteredModal(props) {
+//   return (
+//     <Modal
+//       {...props}
+//       size="lg"
+//       aria-labelledby="contained-modal-title-vcenter"
+//       centered
+//     >
+//       <Modal.Header closeButton>
+//         <Modal.Title id="contained-modal-title-vcenter">
+//           Modal heading
+//         </Modal.Title>
+//       </Modal.Header>
+//       <Modal.Body>
+//         <h4>Centered Modal</h4>
+//         <p>
+//           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+//           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+//           consectetur ac, vestibulum at eros.
+//         </p>
+//       </Modal.Body>
+//       <Modal.Footer>
+//         <Button onClick={props.onHide}>Close</Button>
+//       </Modal.Footer>
+//     </Modal>
+//   );
+// }
+
+// function App() {
+//   const [modalShow, setModalShow] = React.useState(false);
+
+//   return (
+//     <>
+//       <Button variant="primary" onClick={() => setModalShow(true)}>
+//         Launch vertically centered modal
+//       </Button>
+
+//       <MyVerticallyCenteredModal
+//         show={modalShow}
+//         onHide={() => setModalShow(false)}
+//       />
+//     </>
+//   );
+// }
+
+// render(<App />);

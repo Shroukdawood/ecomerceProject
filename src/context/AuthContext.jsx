@@ -10,6 +10,7 @@ const AuthContext = createContext({
     isAuth:false,
     login: () => {},
     logout: () => {},
+    registration:() => {},
 });
 
 
@@ -49,17 +50,27 @@ export const AuthProvider = ({children}) => {
           
       });
     } ;
+    const registration = (userData) => {
+       MainApi.post("/users/add" , userData)
+       .then((res) => {
+        console.log(res);
+       }).catch(error => console.log(error)
+       )
+       };
     const logout = () =>{
         Cookies.remove("token");
         setToken(null);
         navigate("/login",{replace:true});
        
        } ;
+   
     return  <AuthContext.Provider value={{
         login,
         logout,
+     registration,
         token,
         isAuth: !!token,
+        
         }}>
             {children}
         </AuthContext.Provider>;

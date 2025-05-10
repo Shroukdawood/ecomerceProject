@@ -1,4 +1,4 @@
-import React from "react";
+
 
 import Carousel from "react-bootstrap/Carousel";
 import style from "../assets/home.module.css";
@@ -6,11 +6,8 @@ import style from "../assets/home.module.css";
 import {
   Button,
   Card,
-  CardBody,
-  Col,
   Container,
   Image,
-  Row,
 } from "react-bootstrap";
 import shop1 from "../assets/imagesfashon/shop_banner_img1.jpg";
 import shop2 from "../assets/imagesfashon/shop_banner_img2.jpg";
@@ -18,10 +15,13 @@ import slider1 from "../assets/imagesfashon/banner1.jpg";
 import slider2 from "../assets/imagesfashon/banner2.jpg";
 import slider3 from "../assets/imagesfashon/banner3.jpg";
 
-export default function Home() {
+
+
+
+
+export default function FashionHome() {
   return (
     <>
-    
       <div>
         <Carousel style={{ margin: "auto" }} fade>
           <Carousel.Item style={{ display: "flex", justifyContent: "center" }}>

@@ -1,22 +1,34 @@
 import { faCodeCompare, faHeart, faMobileScreenButton, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
-import { Dropdown , Button, NavLink, NavDropdown} from 'react-bootstrap'
-import { Link, useRoutes } from 'react-router-dom';
+import  { useState } from 'react'
+import {  NavLink, Form, Image} from 'react-bootstrap'
+
 import { useAuthContext } from '../context/AuthContext';
-import Login from '../login/Login';
+import enimsge from "../assets/imagesfashon/eng.png"
 
 export default function MainHeader() {
-//   const [language , setLanguage]=useState(null);
-// const language = [{
-
-// }];
-const link = [{
-   
-        path:"/login",
-       name:'login'
-     }
+const [slectlanguage , setSelectLanguage] = useState("eng");
+const languages = [{
+  code:"eng",
+  name:"English",
+  flage:{enimsge}
+},
+{
+  code:"fr",
+  name:"French",
+  flage:"assets/imagefashon/fn.png"
+},
+{
+  code:"us",
+  name:"USA",
+  flage:"assets/imagefashon/us.png"
+}
 ];
+  const handleLanguageChange = (code) => {
+    setSelectLanguage(code);
+    // Add logic to change the language of the website here
+    console.log(`Language changed to: ${code}`);
+  };
 const {isAuth ,login, logout} = useAuthContext();
 
   return (
@@ -24,30 +36,28 @@ const {isAuth ,login, logout} = useAuthContext();
     <header  fixed="top"  style={{display:'flex',alignItems:"flex-end" ,justifyContent:"center" ,width:'100%' , margin:'auto',padding:'20px'}}>
      <div  style={{display:'flex',alignItems:"flex-end" ,justifyContent:"center"}} className='col-6'>
      <div>
-      <Dropdown name="language" id="language-dropdown" className="d-inline-block">
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Language 
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">English</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Spanish</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">French</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+     <Form.Select aria-label="Language" style={{position:"relative"}}
+       value={slectlanguage}
+        onChange={(e) => handleLanguageChange(e.target.value)}
+        className="language-select"
+     >
+      
+      {languages.map((language) => (
+          <option key={language.code} value={language.code}>
+        <Image src={enimsge} alt="" /> {language.name}
+          </option>
+        ))}
+      
+    </Form.Select>
+    
      </div>
      <div className="d-inline-block mx-3">
-      <Dropdown name="currency" id="currency-dropdown">
-        <Dropdown.Toggle  id="dropdown-basic">
-          Currency
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">USD</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">EUR</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">GBP</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+       <Form.Select aria-label="Currency">
+      
+      <option value="1">USD</option>
+      <option value="2">EUR</option>
+      <option value="3">GBR</option>
+    </Form.Select>
      </div> 
      <div className="d-flex align-items-center">
             <FontAwesomeIcon icon={faMobileScreenButton} className="m-2" /> 123-456-7890
