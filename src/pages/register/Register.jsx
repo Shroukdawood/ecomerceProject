@@ -51,13 +51,13 @@ export default function Register() {
     onSubmit: (values) => {
       console.log(values);
 
-      registration(values, (res) => {
-        if (res.status == 201) {
-          navigate("/home");
-        } else {
-          alert("not valid");
-        }
-      });
+      // registration(values, (res) => {
+      //   if (res.status == 201) {
+      //     navigate("/home");
+      //   } else {
+      //     alert("not valid");
+      //   }
+      // });
     },
     validationSchema: object({
       firstName: string().min(3).required(),

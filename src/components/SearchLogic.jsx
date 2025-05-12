@@ -5,9 +5,9 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 export default function SearchLogic() {
   const [query, setQuery] = useState(""); 
   const [results, setResults] = useState([]); 
-  const handleSearch = async (products) => { 
+  const handleSearch = async () => { 
     try {
-      const response = await MainApi.get(`/products/search?q=${products.title}`, {
+      const response = await MainApi.get(`/products/search?q=phone`, {
         params: { q: query }
       });
       setResults(response.data);

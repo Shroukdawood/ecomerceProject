@@ -31,7 +31,7 @@ export default function FashionHome() {
               <h3 style={{ color: "black", fontSize: "50px" }}>
                 Women Fashion
               </h3>
-              <button  className={style.button}>Shop Now</button>
+              <Button variant="outline-danger" className={style.button}>Shop Now</Button>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item style={{ display: "flex", justifyContent: "center" }}>

@@ -10,7 +10,7 @@ const AuthContext = createContext({
     isAuth:false,
     login: () => {},
     logout: () => {},
-    registration:() => {},
+    registration :() => {},
 });
 
 
@@ -20,7 +20,7 @@ export const AuthProvider = ({children}) => {
     const navigate =useNavigate();
     useEffect(() => {
    token &&  validateToken();
-    },[])
+    },[]);
     const validateToken = () => {
      MainApi.get("/auth/me",{
         headers:{
@@ -50,7 +50,7 @@ export const AuthProvider = ({children}) => {
           
       });
     } ;
-    const registration = (userData) => {
+    const registration = (userData,cb) => {
        MainApi.post("/users/add" , userData)
        .then((res) => {
         console.log(res);

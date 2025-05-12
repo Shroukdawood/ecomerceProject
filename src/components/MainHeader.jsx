@@ -5,23 +5,21 @@ import {  NavLink, Form, Image} from 'react-bootstrap'
 
 import { useAuthContext } from '../context/AuthContext';
 import enimsge from "../assets/imagesfashon/eng.png"
+import { Link } from 'react-router-dom';
 
 export default function MainHeader() {
 const [slectlanguage , setSelectLanguage] = useState("eng");
 const languages = [{
   code:"eng",
-  name:"English",
-  flage:{enimsge}
+  name:"English",  
 },
 {
   code:"fr",
   name:"French",
-  flage:"assets/imagefashon/fn.png"
 },
 {
   code:"us",
   name:"USA",
-  flage:"assets/imagefashon/us.png"
 }
 ];
   const handleLanguageChange = (code) => {
@@ -44,7 +42,7 @@ const {isAuth ,login, logout} = useAuthContext();
       
       {languages.map((language) => (
           <option key={language.code} value={language.code}>
-        <Image src={enimsge} alt="" /> {language.name}
+        {language.name}
           </option>
         ))}
       
@@ -76,9 +74,9 @@ const {isAuth ,login, logout} = useAuthContext();
               <NavLink onClick={logout} className="me-4">
               <FontAwesomeIcon icon={faUser} /> Logout
             </NavLink>
-            ) : (<NavLink  onClick={login}  className="me-4">
+            ) : (<Link  to='/login'  className="me-4" style={{textDecoration:'none',color:"black"}}>
               <FontAwesomeIcon icon={faUser} /> Login
-            </NavLink>) }
+            </Link>) }
             
           </div>    
    </header>

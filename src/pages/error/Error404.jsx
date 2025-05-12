@@ -32,7 +32,7 @@ export default function Error404() {
             />
            <Button variant='light'> <FontAwesomeIcon style={{borderBlock:"1px"}} icon={faMagnifyingGlass} /> </Button>
           </Form>
-          <Button  variant="outline-success danger">Back Home</Button>
+         <Link to="/fashionHome"><Button  variant="outline-success danger">Back Home</Button></Link> 
           </div>
     </div>
     

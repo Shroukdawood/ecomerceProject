@@ -12,12 +12,24 @@ import ProtectedRouter from "./components/ProtectedRouter";
 import Register from "./pages/register/Register";
 import SearchLogic from "./components/SearchLogic";
 import FashionHome from "./home/FashionHome";
+import Propus from "./components/Propus";
+import { useState } from "react";
+import { Button } from "react-bootstrap";
+import { useFormik } from "formik";
+import Home from "./home/Home";
 
 function App() {
+  
+     
+
   const routes = useRoutes([
     {
       element: <MainLayout />,
       children: [
+        {
+         path:'/',
+         element:<Home/>
+        },
         {
           path: "/login",
           element: <Login />,
@@ -29,6 +41,7 @@ function App() {
         {
           path: "/fashionHome",
           element:<FashionHome/>,
+         
         },
         {
           path: "/*",
@@ -44,7 +57,6 @@ function App() {
 
   return (
     <>
-    
       <AuthProvider>{routes}</AuthProvider>
     </>
   );
